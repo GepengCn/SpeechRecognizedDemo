@@ -26,9 +26,9 @@ struct ContentView: View {
                             MessageBubble(radius: 5, arrow: 15, text: messages[index])
                                 
                             
-                            RoundedRectangle(cornerRadius: 15)
+                            Circle()
                                 .fill(.orange)
-                                .frame(width: 75, height: 75)
+                                .frame(width: 60)
                                 .overlay {
                                     Text("我")
                                         .font(.title3)

@@ -61,9 +61,9 @@
 				6432D2452BF7047000ACA9A1 /* ContentView.swift */,
 				6432D2512BF7048B00ACA9A1 /* SpeechRecognizedButton.swift */,
 				6432D2552BF7614200ACA9A1 /* SpeechRecognizer.swift */,
+				6432D2572BF8578D00ACA9A1 /* MessageBubble.swift */,
 				6432D2472BF7047100ACA9A1 /* Assets.xcassets */,
 				6432D2492BF7047100ACA9A1 /* Preview Content */,
-				6432D2572BF8578D00ACA9A1 /* MessageBubble.swift */,
 			);
 			path = SpeechRecognizedDemo;
 			sourceTree = "<group>";

@@ -12,9 +12,7 @@ struct SpeechRecognizedButton: View {
     @State private var isLongPressed: Bool = false
     
     @State private var yOffset: CGFloat = 0
-    
-    @State private var loading: Bool = false
-    
+        
     @EnvironmentObject private var speechRecognizer: SpeechRecognizer
     
     var success: (_ text: String)-> Void
