@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
     
+    struct Message: Identifiable {
+        var id = UUID()
+        var text: String
+        var audioURL: URL?
+    }
+    
+    
     @EnvironmentObject private var speechRecognizer: SpeechRecognizer
     
-    @State private var messages: [String] = []
+    @State private var messages: [Message] = []
 
     
     var body: some View {
@@ -20,11 +28,28 @@ struct ContentView: View {
             ScrollView {
                 LazyVStack {
                     
-                    ForEach(0..<messages.count, id: \.self){index in
+                    ForEach(messages){message in
+                        
                         HStack(spacing: 0) {
                             Spacer()
-                            MessageBubble(radius: 5, arrow: 15, text: messages[index])
-                                
+                           
+                            MessageBubble(radius: 5, arrow: 15, text: message.text)
+                                .onTapGesture {
+                                    if let audioURL = message.audioURL {
+                                        do {
+                                            
+                                            let data = try Data(contentsOf: audioURL)
+                                            
+                                            let audioPlayer : AVAudioPlayer = try AVAudioPlayer(contentsOf: audioURL)
+                                                                                
+                                            let playResult = audioPlayer.play()
+                                            
+                                        } catch {
+                                            print(error)
+                                        }
+                                    }
+                                }
+                            
                             
                             Circle()
                                 .fill(.orange)
@@ -35,7 +60,6 @@ struct ContentView: View {
                                         .foregroundStyle(.white)
                                 }
                         }
-                        
                     }
                 }
             }
@@ -43,8 +67,8 @@ struct ContentView: View {
            
             Spacer()
             
-            SpeechRecognizedButton{text in
-                messages.append(text)
+            SpeechRecognizedButton{text, audioURL in
+                messages.append(Message(text: text, audioURL: audioURL))
             }
            
         }

@@ -15,7 +15,7 @@ struct SpeechRecognizedButton: View {
         
     @EnvironmentObject private var speechRecognizer: SpeechRecognizer
     
-    var success: (_ text: String)-> Void
+    var success: (_ text: String, _ audioURL: URL?)-> Void
         
     func isCanceled() -> Bool {
         return yOffset < 0
@@ -32,6 +32,7 @@ struct SpeechRecognizedButton: View {
             Text(speechRecognizer.transcript)
                 .font(.footnote)
                 .foregroundStyle(.secondary)
+          
             
             RoundedRectangle(cornerRadius: 10)
                 .fill(isCanceled() ? .red: isLongPressed ? .gray : .blue)
@@ -60,7 +61,7 @@ struct SpeechRecognizedButton: View {
                             setOffset(yOffset: 0)
                         } else {
                             if !speechRecognizer.transcript.isEmpty {
-                                success(speechRecognizer.transcript)
+                                success(speechRecognizer.transcript, speechRecognizer.audioURL)
                             }
                         }
                         speechRecognizer.transcript = ""
